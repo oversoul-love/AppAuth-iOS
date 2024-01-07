@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief An iOS specific external user-agent that uses the best possible user-agent available
         depending on the version of iOS to present the request.
  */
-API_UNAVAILABLE(macCatalyst)
+API_UNAVAILABLE(visionos)
 @interface OIDExternalUserAgentIOS : NSObject<OIDExternalUserAgent>
 
 - (null_unspecified instancetype)init API_AVAILABLE(ios(11))
