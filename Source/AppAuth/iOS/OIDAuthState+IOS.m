@@ -18,7 +18,7 @@
 
 #import <TargetConditionals.h>
 
-#if TARGET_OS_IOS || TARGET_OS_MACCATALYST
+#if TARGET_OS_IOS || TARGET_OS_VISION
 
 #import "OIDAuthState+IOS.h"
 #import "OIDExternalUserAgentIOS.h"
@@ -31,12 +31,12 @@
                      presentingViewController:(UIViewController *)presentingViewController
                                      callback:(OIDAuthStateAuthorizationCallback)callback {
   id<OIDExternalUserAgent> externalUserAgent;
-#if TARGET_OS_MACCATALYST
+#if TARGET_OS_VISION
   externalUserAgent = [[OIDExternalUserAgentCatalyst alloc]
       initWithPresentingViewController:presentingViewController];
-#else // TARGET_OS_MACCATALYST
+#else // TARGET_OS_VISION
   externalUserAgent = [[OIDExternalUserAgentIOS alloc] initWithPresentingViewController:presentingViewController];
-#endif // TARGET_OS_MACCATALYST
+#endif // TARGET_OS_VISION
   return [self authStateByPresentingAuthorizationRequest:authorizationRequest
                                        externalUserAgent:externalUserAgent
                                                 callback:callback];
@@ -48,21 +48,21 @@
                       prefersEphemeralSession:(BOOL)prefersEphemeralSession
                                      callback:(OIDAuthStateAuthorizationCallback)callback {
   id<OIDExternalUserAgent> externalUserAgent;
-#if TARGET_OS_MACCATALYST
+#if TARGET_OS_VISION
   externalUserAgent = [[OIDExternalUserAgentCatalyst alloc]
           initWithPresentingViewController:presentingViewController
                    prefersEphemeralSession:prefersEphemeralSession];
-#else // TARGET_OS_MACCATALYST
+#else // TARGET_OS_VISION
   externalUserAgent = [[OIDExternalUserAgentIOS alloc]
           initWithPresentingViewController:presentingViewController
                    prefersEphemeralSession:prefersEphemeralSession];
-#endif // TARGET_OS_MACCATALYST
+#endif // TARGET_OS_VISION
   return [self authStateByPresentingAuthorizationRequest:authorizationRequest
                                        externalUserAgent:externalUserAgent
                                                 callback:callback];
 }
 
-#if !TARGET_OS_MACCATALYST
+#if !TARGET_OS_VISION
 + (id<OIDExternalUserAgentSession>)
     authStateByPresentingAuthorizationRequest:(OIDAuthorizationRequest *)authorizationRequest
                                   callback:(OIDAuthStateAuthorizationCallback)callback {
@@ -71,8 +71,8 @@
                                        externalUserAgent:externalUserAgent
                                                 callback:callback];
 }
-#endif // !TARGET_OS_MACCATALYST
+#endif // !TARGET_OS_VISION
 
 @end
 
-#endif // TARGET_OS_IOS || TARGET_OS_MACCATALYST
+#endif // TARGET_OS_IOS || TARGET_OS_VISION

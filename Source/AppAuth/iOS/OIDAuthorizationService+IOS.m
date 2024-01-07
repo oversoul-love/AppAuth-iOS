@@ -18,7 +18,7 @@
 
 #import <TargetConditionals.h>
 
-#if TARGET_OS_IOS || TARGET_OS_MACCATALYST
+#if TARGET_OS_IOS || TARGET_OS_VISION
 
 #import "OIDAuthorizationService+IOS.h"
 #import "OIDExternalUserAgentIOS.h"
@@ -32,12 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
     presentingViewController:(UIViewController *)presentingViewController
                     callback:(OIDAuthorizationCallback)callback {
   id<OIDExternalUserAgent> externalUserAgent;
-#if TARGET_OS_MACCATALYST
+#if TARGET_OS_VISION
   externalUserAgent = [[OIDExternalUserAgentCatalyst alloc]
       initWithPresentingViewController:presentingViewController];
-#else // TARGET_OS_MACCATALYST
+#else // TARGET_OS_VISION
   externalUserAgent = [[OIDExternalUserAgentIOS alloc] initWithPresentingViewController:presentingViewController];
-#endif // TARGET_OS_MACCATALYST
+#endif // TARGET_OS_VISION
   return [self presentAuthorizationRequest:request externalUserAgent:externalUserAgent callback:callback];
 }
 
@@ -46,14 +46,14 @@ NS_ASSUME_NONNULL_BEGIN
      prefersEphemeralSession:(BOOL)prefersEphemeralSession
                     callback:(OIDAuthorizationCallback)callback {
   id<OIDExternalUserAgent> externalUserAgent;
-#if TARGET_OS_MACCATALYST
+#if TARGET_OS_VISION
   externalUserAgent = [[OIDExternalUserAgentCatalyst alloc]
       initWithPresentingViewController:presentingViewController
                        prefersEphemeralSession:prefersEphemeralSession];
-#else // TARGET_OS_MACCATALYST
+#else // TARGET_OS_VISION
   externalUserAgent = [[OIDExternalUserAgentIOS alloc] initWithPresentingViewController:presentingViewController
                prefersEphemeralSession:prefersEphemeralSession];
-#endif // TARGET_OS_MACCATALYST
+#endif // TARGET_OS_VISION
   return [self presentAuthorizationRequest:request externalUserAgent:externalUserAgent callback:callback];
 }
 
@@ -61,4 +61,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#endif // TARGET_OS_IOS || TARGET_OS_MACCATALYST
+#endif // TARGET_OS_IOS || TARGET_OS_VISION
